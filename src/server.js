@@ -23,6 +23,10 @@ router.get('/teste', (req, res) => {
     res.status(200).send("AAAAAAAAAAA! OUTRO COMMIT TESTE");
 });
 
+router.get('/teste1', (req, res) => {
+    res.status(200).send("TESTE 1");
+});
+
 router.get('/', (req, res) => {
     res.status(200).send("Unauthorized Access!");
 });
