@@ -20,12 +20,10 @@ var conn = mysql.createConnection({
 });
 
 router.get('/teste', (req, res) => {
-    res.status(200).send("AAAAAAAAAAA! COMMIT TESTE");
+    res.status(200).send("agora vai! COMMIT TESTE");
 });
 
-router.get('/teste1', (req, res) => {
-    res.status(200).send("TESTE 1");
-});
+
 
 router.get('/', (req, res) => {
     res.status(200).send("Unauthorized Access!");
