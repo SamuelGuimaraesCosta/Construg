@@ -19,14 +19,6 @@ var conn = mysql.createConnection({
     port: 3306
 });
 
-router.get('/teste', (req, res) => {
-    res.status(200).send("AAAAAAAAAAA! COMMIT TESTE");
-});
-
-router.get('/teste1', (req, res) => {
-    res.status(200).send("TESTE 1");
-});
-
 router.get('/', (req, res) => {
     res.status(200).send("Unauthorized Access!");
 });
