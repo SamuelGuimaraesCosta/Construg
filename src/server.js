@@ -61,6 +61,9 @@ router.get('/', (req, res) => {
 });
 
 router.post("/login", cors(corsOptions), (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
+    
     const email = req.body.email;
     const senha = req.body.senha;
 
