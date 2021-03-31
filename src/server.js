@@ -49,10 +49,14 @@ conn.connect(function (err) {
 });
 
 const findUserByEmail = (email, cb) => {
-    conn.query(`SELECT IDUSUARIO, NOME, EMAIL, SENHA, DTNASCIMENTO, ATIVO, BLOQUEADO, MASTER, CPF FROM USUARIOS WHERE EMAIL = ?`, [email], function (error, result) {
+    conn.query(`SELECT 1 FROM USER`, [], function (error, result) {
         if (typeof result !== 'undefined' && result.length > 0) {
+            console.log(error);
+            console.log(result);
             cb(error, result[0]);
         } else {
+            console.log(error);
+            console.log(result);
             cb(error, null);
         }
     });
@@ -63,10 +67,8 @@ router.get('/', (req, res) => {
 });
 
 router.post("/login", cors(corsOptions), (req, res, next) => {
-    const email = req.body.email;
-    const senha = req.body.senha;
-    
-    console.log(req.body, req);
+    const email = req.body.userID;
+    const senha = req.body.password;
 
     findUserByEmail(email, (err, user) => {
         if (err) {
