@@ -86,15 +86,7 @@ router.post("/login", cors(corsOptions), (req, res, next) => {
         } else {
             delete user.SENHA;
         }
-
-        if (user.ATIVO == 0) {
-            return res.status(999).send("Conta Dessativada!");
-        }
-
-        if (user.BLOQUEADO == 1) {
-            return res.status(998).send("Conta Bloqueada!");
-        }
-
+        
         const expiresIn = 7 * 24 * 60 * 60;
         const accessToken = jwt.sign({ id: user.IDUSUARIO }, SECRET_KEY, { expiresIn: expiresIn });
         res.status(200).send({ "user": user, "TOKEN": accessToken, "EXPIRE": expiresIn })
