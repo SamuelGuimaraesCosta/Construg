@@ -13,8 +13,8 @@ const router = express.Router();
 
 var conn = mysql.createConnection({
     host: "pesquisamysql.mysql.database.azure.com",
-    user: "rootpesquisa", password: "{pesquisa@123}",
-    database: "{your_database}",
+    user: "rootpesquisa", password: "pesquisa@123",
+    database: "construg",
     port: 3306
 });
 
