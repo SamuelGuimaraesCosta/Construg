@@ -11,6 +11,28 @@ const cors = require('cors');
 const app = express();
 const router = express.Router();
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
+    app.use(cors());
+    next();
+});
+
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (allowedOrigins.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Origin not allowed by CORS'));
+        }
+    }
+}
+
+app.options('*', cors(corsOptions));
+
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
+
 var conn = mysql.createConnection({
     host: "construgmysql.mysql.database.azure.com",
     user: "construgroot", password: "construg@123",
@@ -74,13 +96,6 @@ router.post("/login", cors(corsOptions), (req, res) => {
 });
 
 app.use(router);
-
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
-    app.use(cors());
-    next();
-});
 
 var serverHttp = http.createServer(app);
 
