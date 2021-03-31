@@ -19,13 +19,15 @@ app.use((req, res, next) => {
 });
 
 const corsOptions = {
-    origin: (origin, callback) => {
-        if (allowedOrigins.includes(origin) || !origin) {
-            callback(null, true);
-        } else {
-            callback(new Error('Origin not allowed by CORS'));
-        }
-    }
+//     origin: (origin, callback) => {
+//         if (allowedOrigins.includes(origin) || !origin) {
+//             callback(null, true);
+//         } else {
+//             callback(new Error('Origin not allowed by CORS'));
+//         }
+//     }
+    origin: "https://construg.azurewebsites.net",
+    optionsSuccessStatus: 200 
 }
 
 app.options('*', cors(corsOptions));
@@ -60,10 +62,7 @@ router.get('/', (req, res) => {
     res.status(200).send("Unauthorized Access!");
 });
 
-router.post("/login", cors(corsOptions), (req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
-    
+router.post("/login", cors(corsOptions), (req, res, next) => {
     const email = req.body.email;
     const senha = req.body.senha;
 
