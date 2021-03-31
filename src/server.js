@@ -65,6 +65,8 @@ router.get('/', (req, res) => {
 router.post("/login", cors(corsOptions), (req, res, next) => {
     const email = req.body.email;
     const senha = req.body.senha;
+    
+    console.log(req.body, req);
 
     findUserByEmail(email, (err, user) => {
         if (err) {
