@@ -38,9 +38,8 @@ router.use(bodyParser.json());
 var conn = mysql.createConnection({
     host: "construgmysql.mysql.database.azure.com",
     user: "construgroot",
-    password: "pesquisa@123",
-    database: "construg",
-    port: 3306
+    password: "construg@123",
+    database: "construg"
 });
 
 conn.connect(function (err) {
