@@ -38,7 +38,7 @@ router.use(bodyParser.json());
 var conn = mysql.createConnection({
     host: "construgmysql.mysql.database.azure.com",
     user: "construgroot",
-    password: "construg@123",
+    password: "123@construg",
     database: "construg"
 });
 
