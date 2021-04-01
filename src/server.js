@@ -76,7 +76,7 @@ router.post("/login", cors(corsOptions), (req, res, next) => {
     const email = req.body.email;
     const senha = req.body.password;
     
-    console.log("BODY REQ: " + req.body);
+    console.log("BODY REQ: " + JSON.stringfy(req.body));
 
     findUserByEmail(email, (err, user) => {
         if (err) {
