@@ -96,13 +96,13 @@ router.post("/login", cors(corsOptions), (req, res, next) => {
             return res.status(404).send("Usuario não encontrado!");
         }
         
-        const result = bcrypt.compareSync(senha, user.SENHA);
+        //const result = bcrypt.compareSync(senha, user.SENHA);
 
-        if (!result) {
-            return res.status(401).send("Senha inválida!");
-        } else {
-            delete user.SENHA;
-        }
+        //if (!result) {
+        //    return res.status(401).send("Senha inválida!");
+        //} else {
+        //    delete user.SENHA;
+        //}
         
         const expiresIn = 7 * 24 * 60 * 60;
         const accessToken = jwt.sign({ id: user.IDUSUARIO }, SECRET_KEY, { expiresIn: expiresIn });
