@@ -57,16 +57,21 @@ conn.connect(function (err) {
 });
 
 const findUserByEmail = (email, cb) => {
-    conn.query(`SELECT * FROM user WHERE EMAIL = ?`, [email], function (error, result) {
+    conn.query(`SELECT * FROM USER WHERE EMAIL = ?`, [email], function (error, result) {
         if (typeof result !== 'undefined' && result.length > 0) {
-            console.log("ERROR: " + error);
-            console.log("RESULT: " + result[0]);
             cb(error, result[0]);
         } else {
-            console.log("ERROR: " + error);
-            console.log("RESULT: " + result);
             cb(error, null);
         }
+    });
+}
+
+const createUser = (user, cb) => {
+    var sql = "INSERT INTO USER (NOME, EMAIL, SENHA, DTNASCIMENTO) VALUES ?";
+    var dados = [user];
+
+    mysqlConn.query(sql, [dados], function (error, results) {
+        cb(error);
     });
 }
 
@@ -89,17 +94,40 @@ router.post("/login", cors(corsOptions), (req, res, next) => {
             return res.status(404).send("Usuario não encontrado!");
         }
         
-        //const result = bcrypt.compareSync(senha, user.SENHA);
+        const result = bcrypt.compareSync(senha, user.SENHA);
 
-        //if (!result) {
-        //    return res.status(401).send("Senha inválida!");
-        //} else {
-        //    delete user.SENHA;
-        //}
+        if (!result) {
+           return res.status(401).send("Senha inválida!");
+        } else {
+           delete user.SENHA;
+        }
         
         const expiresIn = 7 * 24 * 60 * 60;
         const accessToken = jwt.sign({ id: user.IDUSUARIO }, SECRET_KEY, { expiresIn: expiresIn });
         res.status(200).send({ "user": user, "TOKEN": accessToken, "EXPIRE": expiresIn })
+    });
+});
+
+router.post("/register", cors(corsOptions), (req, res) => {
+    const nome = req.body.nome;
+    const email = req.body.email;
+    const senha = bcrypt.hashSync(req.body.senha);
+    const dtnasc = "0000-00-00";
+
+    createUser([nome, email, senha, dtnasc], (err) => {
+        if (err) {
+            return res.status(500).send("Houve um erro no servidor: createUser");
+        }
+
+        findUserByEmail(email, (err, user) => {
+            if (err) {
+                return res.status(500).send("Houve um erro no servidor: findUserByEmail");
+            }
+
+            const expiresIn = 24 * 60 * 60;
+            const accessToken = jwt.sign({ "id": user.idusuario }, SECRET_KEY, { "expiresIn": expiresIn });
+            res.status(200).send({ "user": user, "access_token": accessToken, "expires_in": expiresIn });
+        });
     });
 });
 
