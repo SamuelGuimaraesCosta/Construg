@@ -26,7 +26,7 @@ const corsOptions = {
 //             callback(new Error('Origin not allowed by CORS'));
 //         }
 //     }
-    origin: "https://construg.azurewebsites.net",
+    origin: "http://localhost:8100/",
     optionsSuccessStatus: 200 
 }
 
@@ -39,7 +39,22 @@ var conn = mysql.createConnection({
     host: "construgmysql.mysql.database.azure.com",
     user: "construgroot",
     password: "123@construg",
-    database: "construg"
+    database: "construg",
+    port 3306,
+    ssl:{
+        ca:fs.readFileSync("{ca-cert filename}")
+    }
+});
+
+var conn=mysql.createConnection({
+    host:"construgmysql.mysql.database.azure.com",
+    user:"construgroot",
+    password:"{your_password}",
+    database:"{your_database}",
+    port:3306,
+    ssl:{
+        ca:fs.readFileSync("{ca-cert filename}")
+    }
 });
 
 conn.connect(function (err) {
