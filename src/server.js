@@ -58,7 +58,7 @@ const findUserByEmail = (email, cb) => {
     conn.query(`SELECT * FROM user WHERE EMAIL = ?`, [email], function (error, result) {
         if (typeof result !== 'undefined' && result.length > 0) {
             console.log("ERROR: " + error);
-            console.log("RESULT: " + JSON.stringfy(result));
+            console.log("RESULT: " + result[0]);
             cb(error, result[0]);
         } else {
             console.log("ERROR: " + error);
@@ -76,7 +76,7 @@ router.post("/login", cors(corsOptions), (req, res, next) => {
     const email = req.body.email;
     const senha = req.body.password;
     
-    console.log("BODY REQ: " + JSON.stringfy(req.body));
+    console.log("BODY REQ: " + req.body.email + "  " + req.body.senha);
 
     findUserByEmail(email, (err, user) => {
         if (err) {
