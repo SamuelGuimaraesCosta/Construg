@@ -26,7 +26,7 @@ const corsOptions = {
 //             callback(new Error('Origin not allowed by CORS'));
 //         }
 //     }
-    origin: "http://localhost:8100/",
+    origin: "http://localhost/",
     optionsSuccessStatus: 200 
 }
 
