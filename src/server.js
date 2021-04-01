@@ -48,17 +48,6 @@ var conn = mysql.createConnection({
     }
 });
 
-// var conn=mysql.createConnection({
-//     host:"construgmysql.mysql.database.azure.com",
-//     user:"construgroot",
-//     password:"{your_password}",
-//     database:"{your_database}",
-//     port:3306,
-//     ssl:{
-//         ca:fs.readFileSync("{ca-cert filename}")
-//     }
-// });
-
 conn.connect(function (err) {
     if (err)
         return console.log("Falha na conexão com BD: " + err);
@@ -69,7 +58,7 @@ const findUserByEmail = (email, cb) => {
     conn.query(`SELECT * FROM user WHERE EMAIL = ?`, [email], function (error, result) {
         if (typeof result !== 'undefined' && result.length > 0) {
             console.log("ERROR: " + error);
-            console.log("RESULT: " + result);
+            console.log("RESULT: " + JSO<.stringfy(result));
             cb(error, result[0]);
         } else {
             console.log("ERROR: " + error);
@@ -84,8 +73,10 @@ router.get('/', (req, res) => {
 });
 
 router.post("/login", cors(corsOptions), (req, res, next) => {
-    const email = req.body.userID;
+    const email = req.body.email;
     const senha = req.body.password;
+    
+    console.log("BODY REQ: " + req.body);
 
     findUserByEmail(email, (err, user) => {
         if (err) {
