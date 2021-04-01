@@ -57,7 +57,7 @@ conn.connect(function (err) {
 });
 
 const findUserByEmail = (email, cb) => {
-    conn.query(`SELECT * FROM USER WHERE EMAIL = ?`, [email], function (error, result) {
+    conn.query(`SELECT * FROM user WHERE EMAIL = ?`, [email], function (error, result) {
         if (typeof result !== 'undefined' && result.length > 0) {
             cb(error, result[0]);
         } else {
@@ -67,7 +67,7 @@ const findUserByEmail = (email, cb) => {
 }
 
 const createUser = (user, cb) => {
-    var sql = "INSERT INTO USER (NOME, EMAIL, SENHA, DTNASCIMENTO) VALUES ?";
+    var sql = "INSERT INTO user (NOME, EMAIL, SENHA, DTNASCIMENTO) VALUES ?";
     var dados = [user];
 
     conn.query(sql, [dados], function (error, results) {
