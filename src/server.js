@@ -13,6 +13,8 @@ const router = express.Router();
 
 var certificate = fs.readFileSync('DigiCertGlobalRootCA.crt.pem', 'utf8');
 
+const SECRET_KEY = "construg@123";
+
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
