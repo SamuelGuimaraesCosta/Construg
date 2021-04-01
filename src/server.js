@@ -66,7 +66,7 @@ conn.connect(function (err) {
 });
 
 const findUserByEmail = (email, cb) => {
-    conn.query(`SELECT 1 FROM USER`, [], function (error, result) {
+    conn.query(`SELECT * FROM user WHERE EMAIL = ?`, [email], function (error, result) {
         if (typeof result !== 'undefined' && result.length > 0) {
             console.log("ERROR: " + error);
             console.log("RESULT: " + result);
@@ -95,7 +95,7 @@ router.post("/login", cors(corsOptions), (req, res, next) => {
         if (!user) {
             return res.status(404).send("Usuario não encontrado!");
         }
-
+        
         const result = bcrypt.compareSync(senha, user.SENHA);
 
         if (!result) {
