@@ -70,7 +70,7 @@ const createUser = (user, cb) => {
     var sql = "INSERT INTO USER (NOME, EMAIL, SENHA, DTNASCIMENTO) VALUES ?";
     var dados = [user];
 
-    mysqlConn.query(sql, [dados], function (error, results) {
+    conn.query(sql, [dados], function (error, results) {
         cb(error);
     });
 }
