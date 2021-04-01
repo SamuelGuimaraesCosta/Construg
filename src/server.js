@@ -7,8 +7,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const mysql = require('mysql');
 const cors = require('cors');
-const fs = require('fs')
-
+const fs = require('fs');
 const app = express();
 const router = express.Router();
 
@@ -43,7 +42,7 @@ var conn = mysql.createConnection({
     database: "construg",
     port: 3306,
     ssl: {
-        ca: fs.readFileSync("../DigiCertGlobalRootCA.crt.pem")
+        ca: fs.readFileSync("DigiCertGlobalRootCA.crt.pem")
     }
 });
 
@@ -67,12 +66,12 @@ conn.connect(function (err) {
 const findUserByEmail = (email, cb) => {
     conn.query(`SELECT 1 FROM USER`, [], function (error, result) {
         if (typeof result !== 'undefined' && result.length > 0) {
-            console.log(error);
-            console.log(result);
+            console.log("ERROR: " + error);
+            console.log("RESULT: " + result);
             cb(error, result[0]);
         } else {
-            console.log(error);
-            console.log(result);
+            console.log("ERROR: " + error);
+            console.log("RESULT: " + result);
             cb(error, null);
         }
     });
