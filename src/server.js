@@ -43,7 +43,7 @@ var conn = mysql.createConnection({
     database: "construg",
     port: 3306,
     ssl: {
-        ca: fs.readFileSync("")
+        ca: fs.readFileSync("../DigiCertGlobalRootCA.crt.pem")
     }
 });
 
