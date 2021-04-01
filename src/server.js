@@ -40,10 +40,7 @@ var conn = mysql.createConnection({
     user: "construgroot",
     password: "123@construg",
     database: "construg",
-    port: 3306,
-    ssl:{
-        ca:fs.readFileSync("{ca-cert filename}")
-    }
+    port: 3306
 });
 
 var conn=mysql.createConnection({
