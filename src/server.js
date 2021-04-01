@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const mysql = require('mysql');
 const cors = require('cors');
+const fs = require('fs')
 
 const app = express();
 const router = express.Router();
@@ -40,7 +41,10 @@ var conn = mysql.createConnection({
     user: "construgroot",
     password: "123@construg",
     database: "construg",
-    port: 3306
+    port: 3306,
+    ssl: {
+        ca: fs.readFileSync("")
+    }
 });
 
 // var conn=mysql.createConnection({
