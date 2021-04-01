@@ -112,7 +112,7 @@ router.post("/register", cors(corsOptions), (req, res) => {
     const nome = req.body.nome;
     const email = req.body.email;
     const senha = bcrypt.hashSync(req.body.senha);
-    const dtnasc = "0000-00-00";
+    const dtnasc = "1999-01-01";
 
     createUser([nome, email, senha, dtnasc], (err) => {
         if (err) {
