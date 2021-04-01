@@ -62,7 +62,7 @@ var conn = mysql.createConnection({
 conn.connect(function (err) {
     if (err)
         return console.log("Falha na conexão com BD: " + err);
-    return console.log("Conexão com BD realizada com sucesso! " + mysqlConn.threadId);
+    return console.log("Conexão com BD realizada com sucesso! " + conn.threadId);
 });
 
 const findUserByEmail = (email, cb) => {
