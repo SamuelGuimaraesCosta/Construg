@@ -11,6 +11,8 @@ const fs = require('fs');
 const app = express();
 const router = express.Router();
 
+var certificate = fs.readFileSync('DigiCertGlobalRootCA.crt.pem', 'utf8');
+
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
@@ -42,7 +44,7 @@ var conn = mysql.createConnection({
     database: "construg",
     port: 3306,
     ssl: {
-        ca: fs.readFileSync("DigiCertGlobalRootCA.crt.pem")
+        ca: certificate
     }
 });
 
