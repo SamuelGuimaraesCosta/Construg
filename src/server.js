@@ -116,7 +116,7 @@ router.post("/register", cors(corsOptions), (req, res) => {
 
     createUser([nome, email, senha, dtnasc], (err) => {
         if (err) {
-            return res.status(500).send("Houve um erro no servidor: createUser");
+            return res.status(500).send("Houve um erro no servidor: createUser: " + err);
         }
 
         findUserByEmail(email, (err, user) => {
